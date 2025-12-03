@@ -59,7 +59,7 @@ export default function Dashboard() {
                         <h5 className="mb-0 ms-2">Secure Notes</h5>
                     </div>
                     <div className="d-flex align-items-center">
-                        <div className="me-3">
+                        <div className="me-2">
                             <strong>
                                 {profile?.name
                                     ? profile.name.split(" ")[0].charAt(0).toUpperCase() + profile.name.split(" ")[0].slice(1).toLowerCase()
