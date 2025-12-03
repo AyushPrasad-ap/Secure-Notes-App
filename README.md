@@ -1,4 +1,4 @@
-# Frontend Developer Intern Task - Easy2Ride (Notes demo)
+# Frontend Developer Intern Task
 
 ## Overview
 
