@@ -281,8 +281,9 @@ This project is licensed under the **MIT License**.
 
 # 🙋‍♂️ Author
 
-**Ayush Prasad**
+**Ayush Prasad** -
 Full-Stack Developer
+
 GitHub: [https://github.com/AyushPrasad-ap](https://github.com/AyushPrasad-ap)
 
 LinkedIn: [https://www.linkedin.com/in/ayush-prasad-ap/](https://www.linkedin.com/in/ayush-prasad-ap/)
