@@ -1,16 +1,48 @@
-# React + Vite
+# Frontend Developer Intern Task - Easy2Ride (Notes demo)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Overview
 
-Currently, two official plugins are available:
+Small fullstack app with JWT auth, profile, notes CRUD, search/filter.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## React Compiler
+- Frontend: React (Vite), Bootstrap, Axios
+- Backend: Node.js, Express, MongoDB (Mongoose), JWT, bcrypt
+- Dev DB: MongoDB Atlas (or local Docker)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Run locally
 
-## Expanding the ESLint configuration
+### Backend
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+cd backend
+cp .env.example .env
+
+# edit .env to set MONGO_URI and JWT_SECRET
+
+npm install
+npm run dev
+
+### Frontend
+
+cd frontend
+cp .env.example .env
+
+# set VITE_API_URL to backend (e.g. http://localhost:5000/api)
+
+npm install
+npm run dev
+
+## Endpoints
+
+- POST /api/auth/register
+- POST /api/auth/login
+- GET /api/profile (protected)
+- GET/POST/PUT/DELETE /api/notes (protected)
+
+## Notes about scaling & security
+
+(Paste the scaling & security notes from the assignment response.)
+
+## Contact
+
+Ayush Prasad
