@@ -1,31 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import API from '../api/api';
-import NoteForm from '../components/NoteForm';
+import React, { useState, useEffect } from "react";
+import API from "../api/api";
+import NoteForm from "../components/NoteForm";
+import { Trash } from "lucide-react";
 
 export default function Dashboard() {
     const [profile, setProfile] = useState(null);
     const [notes, setNotes] = useState([]);
-    const [q, setQ] = useState('');
+    const [q, setQ] = useState("");
 
     const fetchProfile = async () => {
         try {
-            const res = await API.get('/profile');
+            const res = await API.get("/profile");
             setProfile(res.data);
         } catch (err) {
             console.error(err);
         }
     };
 
-    const fetchNotes = async (query = '') => {
+    const fetchNotes = async (query = "") => {
         try {
-            const res = await API.get('/notes', { params: { q: query } });
+            const res = await API.get("/notes", { params: { q: query } });
             setNotes(res.data);
         } catch (err) {
             console.error(err);
         }
     };
 
-    useEffect(() => { fetchProfile(); fetchNotes(); }, []);
+    useEffect(() => {
+        fetchProfile();
+        fetchNotes();
+    }, []);
 
     useEffect(() => {
         const timeout = setTimeout(() => fetchNotes(q), 300);
@@ -33,50 +37,86 @@ export default function Dashboard() {
     }, [q]);
 
     const logout = () => {
-        localStorage.removeItem('token');
-        window.location.href = '/login';
+        localStorage.removeItem("token");
+        window.location.href = "/login";
     };
 
     const removeNote = async (id) => {
-        if (!confirm('Delete this note?')) return;
+        if (!confirm("Delete this note?")) return;
         await API.delete(`/notes/${id}`);
         fetchNotes(q);
     };
 
     return (
         <div className="container py-4">
-            <div className="d-flex justify-content-between align-items-center">
-                <h4>Welcome, {profile?.name}</h4>
-                <div>
-                    <button className="btn btn-secondary me-2" onClick={() => alert(JSON.stringify(profile, null, 2))}>Profile</button>
-                    <button className="btn btn-outline-danger" onClick={logout}>Logout</button>
+
+            {/* Top Navbar */}
+            <nav className="navbar navbar-light bg-light rounded shadow-sm px-3 mb-4">
+                <span className="navbar-brand fw-semibold">
+                    Secure Notes
+                </span>
+
+                <div className="d-flex align-items-center">
+                    <span className="me-3 fw-medium">👋 {profile?.name}</span>
+                    <button className="btn btn-outline-danger btn-sm" onClick={logout}>
+                        Logout
+                    </button>
                 </div>
+            </nav>
+
+            {/* Add Note + Search */}
+            <div className="mb-4">
+                <NoteForm onCreate={() => fetchNotes(q)} />
+
+                <input
+                    className="form-control mt-3"
+                    placeholder="Search notes..."
+                    value={q}
+                    onChange={(e) => setQ(e.target.value)}
+                />
             </div>
 
-            <div className="row mt-3">
-                <div className="col-md-6">
-                    <NoteForm onCreate={() => fetchNotes(q)} />
-                    <input className="form-control mb-3" placeholder="Search notes..." value={q} onChange={e => setQ(e.target.value)} />
-                    {notes.length === 0 && <p>No notes yet</p>}
-                    {notes.map(n => (
-                        <div className="card mb-2" key={n._id}>
-                            <div className="card-body">
-                                <h5 className="card-title">{n.title}</h5>
-                                <p className="card-text">{n.body}</p>
-                                <div>
-                                    {n.tags?.map((t, i) => <span key={i} className="badge bg-light text-dark me-1">{t}</span>)}
+            {/* Notes Section */}
+            <div className="row g-3">
+                {notes.length === 0 && (
+                    <p className="text-muted text-center mt-5">No notes yet. Create one!</p>
+                )}
+
+                {notes.map((n) => (
+                    <div key={n._id} className="col-sm-6 col-md-4 col-lg-3">
+                        <div className="card shadow-sm border-0 h-100">
+                            <div className="card-body d-flex flex-column">
+                                <h5 className="card-title fw-bold">{n.title}</h5>
+                                <p className="card-text text-muted flex-grow-1">
+                                    {n.body || "No content"}
+                                </p>
+
+                                {/* Tags */}
+                                <div className="mb-2">
+                                    {n.tags?.map((t, i) => (
+                                        <span key={i} className="badge bg-secondary me-1">
+                                            {t}
+                                        </span>
+                                    ))}
                                 </div>
-                                <div className="mt-2">
-                                    <button className="btn btn-sm btn-danger" onClick={() => removeNote(n._id)}>Delete</button>
+
+                                {/* Buttons */}
+                                <div className="d-flex justify-content-between">
+                                    {/* Future: Edit Modal */}
+                                    {/* <button className="btn btn-sm btn-outline-primary">Edit</button> */}
+
+                                    <button
+                                        className="btn btn-sm btn-outline-danger"
+                                        onClick={() => removeNote(n._id)}
+                                    >
+                                        <Trash size={16} className="me-1" />
+                                        Delete
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    ))}
-                </div>
-                <div className="col-md-6">
-                    <h5>Notes JSON (debug)</h5>
-                    <pre style={{ maxHeight: 400, overflow: 'auto' }}>{JSON.stringify(notes, null, 2)}</pre>
-                </div>
+                    </div>
+                ))}
             </div>
         </div>
     );

@@ -67,17 +67,19 @@ router.put('/:id', auth, async (req, res) => {
 
 router.delete('/:id', auth, async (req, res) => {
   try {
-    let note = await Note.findById(req.params.id);
+    const note = await Note.findById(req.params.id);
     if (!note) return res.status(404).json({ msg: 'Not found' });
 
     if (note.user.toString() !== req.user.id)
       return res.status(401).json({ msg: 'Unauthorized' });
 
-    await note.remove();
-    res.json({ msg: 'Note deleted' });
+    // safer delete (works across Mongoose versions)
+    await Note.findByIdAndDelete(req.params.id);
+
+    return res.json({ msg: 'Note deleted' });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Server error");
+    return res.status(500).send('Server error');
   }
 });
 
