@@ -1,3 +1,4 @@
+// src/pages/Dashboard.jsx
 import React, { useState, useEffect } from "react";
 import API from "../api/api";
 import NoteForm from "../components/NoteForm";
@@ -48,75 +49,70 @@ export default function Dashboard() {
     };
 
     return (
-        <div className="container py-4">
+        <div className="app-root">
+            <div className="container">
 
-            {/* Top Navbar */}
-            <nav className="navbar navbar-light bg-light rounded shadow-sm px-3 mb-4">
-                <span className="navbar-brand fw-semibold">
-                    Secure Notes
-                </span>
-
-                <div className="d-flex align-items-center">
-                    <span className="me-3 fw-medium">👋 {profile?.name}</span>
-                    <button className="btn btn-outline-danger btn-sm" onClick={logout}>
-                        Logout
-                    </button>
+                {/* top glass nav */}
+                <div className="glass glass-nav mb-4">
+                    <div className="d-flex align-items-center">
+                        <h5 className="mb-0">Secure Notes</h5>
+                        <small className="text-muted ms-2">— your private notes</small>
+                    </div>
+                    <div className="d-flex align-items-center">
+                        <div className="me-3">👋 <strong>{profile?.name || "User"}</strong></div>
+                        <button className="btn btn-outline-danger btn-sm" onClick={logout}>Logout</button>
+                    </div>
                 </div>
-            </nav>
 
-            {/* Add Note + Search */}
-            <div className="mb-4">
-                <NoteForm onCreate={() => fetchNotes(q)} />
+                {/* card containing add + search */}
+                <div className="glass mb-4">
+                    <NoteForm onCreate={() => fetchNotes(q)} />
+                    <input
+                        className="form-control mt-3"
+                        placeholder="Search notes..."
+                        value={q}
+                        onChange={(e) => setQ(e.target.value)}
+                    />
+                </div>
 
-                <input
-                    className="form-control mt-3"
-                    placeholder="Search notes..."
-                    value={q}
-                    onChange={(e) => setQ(e.target.value)}
-                />
-            </div>
+                {/* notes grid */}
+                <div className="row g-4">
+                    {notes.length === 0 && (
+                        <div className="col-12">
+                            <div className="glass text-center py-5">
+                                <p className="mb-0 text-muted">No notes yet — create one above.</p>
+                            </div>
+                        </div>
+                    )}
 
-            {/* Notes Section */}
-            <div className="row g-3">
-                {notes.length === 0 && (
-                    <p className="text-muted text-center mt-5">No notes yet. Create one!</p>
-                )}
-
-                {notes.map((n) => (
-                    <div key={n._id} className="col-sm-6 col-md-4 col-lg-3">
-                        <div className="card shadow-sm border-0 h-100">
-                            <div className="card-body d-flex flex-column">
-                                <h5 className="card-title fw-bold">{n.title}</h5>
-                                <p className="card-text text-muted flex-grow-1">
-                                    {n.body || "No content"}
-                                </p>
-
-                                {/* Tags */}
+                    {notes.map(n => (
+                        <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={n._id}>
+                            <div className="note-card">
                                 <div className="mb-2">
-                                    {n.tags?.map((t, i) => (
-                                        <span key={i} className="badge bg-secondary me-1">
-                                            {t}
-                                        </span>
-                                    ))}
+                                    <div className="note-title">{n.title}</div>
+                                    <div className="note-body">{n.body || "—"}</div>
                                 </div>
 
-                                {/* Buttons */}
-                                <div className="d-flex justify-content-between">
-                                    {/* Future: Edit Modal */}
-                                    {/* <button className="btn btn-sm btn-outline-primary">Edit</button> */}
+                                <div className="mt-auto">
+                                    <div className="mb-2">
+                                        {n.tags?.map((t, i) => (
+                                            <span key={i} className="badge me-1">{t}</span>
+                                        ))}
+                                    </div>
 
-                                    <button
-                                        className="btn btn-sm btn-outline-danger"
-                                        onClick={() => removeNote(n._id)}
-                                    >
-                                        <Trash size={16} className="me-1" />
-                                        Delete
-                                    </button>
+                                    <div className="d-flex justify-content-between">
+                                        {/* left placeholder for future features */}
+                                        <div></div>
+                                        <button className="btn btn-sm btn-outline-danger" onClick={() => removeNote(n._id)}>
+                                            <Trash size={14} className="me-1" />
+                                            Delete
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
         </div>
     );
