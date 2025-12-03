@@ -55,11 +55,17 @@ export default function Dashboard() {
                 {/* top glass nav */}
                 <div className="glass glass-nav mb-4">
                     <div className="d-flex align-items-center">
-                        <h5 className="mb-0">Secure Notes</h5>
-                        <small className="text-muted ms-2">— your private notes</small>
+                        <img src="logo.png" width={35} alt="logo" />
+                        <h5 className="mb-0 ms-2">Secure Notes</h5>
                     </div>
                     <div className="d-flex align-items-center">
-                        <div className="me-3">👋 <strong>{profile?.name || "User"}</strong></div>
+                        <div className="me-3">
+                            <strong>
+                                {profile?.name
+                                    ? profile.name.split(" ")[0].charAt(0).toUpperCase() + profile.name.split(" ")[0].slice(1).toLowerCase()
+                                    : "User"}
+                            </strong>
+                        </div>
                         <button className="btn btn-outline-danger btn-sm" onClick={logout}>Logout</button>
                     </div>
                 </div>
@@ -80,7 +86,7 @@ export default function Dashboard() {
                     {notes.length === 0 && (
                         <div className="col-12">
                             <div className="glass text-center py-5">
-                                <p className="mb-0 text-muted">No notes yet — create one above.</p>
+                                <p className="mb-0">No notes yet — Create one above!</p>
                             </div>
                         </div>
                     )}

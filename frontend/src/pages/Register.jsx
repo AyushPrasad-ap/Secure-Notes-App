@@ -26,7 +26,7 @@ export default function Register() {
             <div className="glass auth-card">
                 <div className="p-4">
                     <h2 className="mb-3">Create account</h2>
-                    <p className="text-muted mb-4">Sign up to securely store your notes</p>
+                    <p className="mb-4">Sign up to securely store your notes</p>
 
                     <form onSubmit={submit}>
                         <div className="mb-3">
@@ -42,7 +42,7 @@ export default function Register() {
                         <button className="btn btn-primary w-100">Register</button>
                     </form>
 
-                    <div className="mt-3 text-center text-muted">
+                    <div className="mt-3 text-center">
                         Already have an account? <Link to="/login">Login</Link>
                     </div>
                 </div>
