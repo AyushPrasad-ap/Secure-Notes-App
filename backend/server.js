@@ -1,26 +1,33 @@
-require('dotenv').config();
-import express, { json } from 'express';
-import connectDB from './config/db';
+import express from 'express';
+import dotenv from 'dotenv';
 import cors from 'cors';
+import connectDB from './config/db.js';
+import authRoutes from './routes/auth.js';
+import notesRoutes from './routes/notes.js';
+import auth from './middleware/auth.js';
+import User from './models/User.js';
 
+dotenv.config();
 const app = express();
+
+// Connect DB
 connectDB();
 
-app.use(json());
+// Middleware
+app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT_URL || '*' }));
 
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/notes', require('./routes/notes'));
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/notes', notesRoutes);
 
-import auth from './middleware/auth';
-import { findById } from './models/User';
-
+// Profile route
 app.get('/api/profile', auth, async (req, res) => {
   try {
-    const user = await findById(req.user.id).select('-password');
+    const user = await User.findById(req.user.id).select('-password');
     res.json(user);
   } catch (err) {
-    console.error(err.message);
+    console.error(err);
     res.status(500).send('Server error');
   }
 });
