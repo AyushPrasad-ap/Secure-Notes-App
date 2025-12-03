@@ -21,6 +21,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
     Arial;
   color: #fff;
@@ -87,18 +88,28 @@ body::before {
   overflow: hidden;
 }
 
-/* Input styles to match glass */
+/* GLASS INPUTS */
 .form-control {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  color: var(--text-light);
-  border-radius: 8px;
-  padding: 0.6rem 0.75rem;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  border-radius: 10px;
+  padding: 0.75rem;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
 }
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
 .form-control:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(100, 150, 255, 0.08);
-  border-color: rgba(100, 150, 255, 0.45);
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: rgba(140, 180, 255, 0.6) !important;
+  outline: none !important;
+  box-shadow: 0 0 8px rgba(140, 180, 255, 0.25) !important;
+  color: #fff !important;
 }
 
 /* Buttons */
@@ -151,6 +162,23 @@ body::before {
   color: rgba(255, 255, 255, 0.85);
   font-size: 0.95rem;
   margin-bottom: 0.6rem;
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+}
+
+.note-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.note-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.25); /* visible thumb */
+  border-radius: 12px;
+}
+
+.note-body::-webkit-scrollbar-track {
+  background: transparent !important; /* remove background completely */
 }
 
 /* tags */

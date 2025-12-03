@@ -25,7 +25,7 @@ export default function Login() {
             <div className="glass auth-card">
                 <div className="p-4">
                     <h2 className="mb-3">Welcome back</h2>
-                    <p className="mb-4">Sign in to access your secure notes</p>
+                    <p className="mb-4">Sign in to access your secure notes.</p>
 
                     <form onSubmit={submit}>
                         <div className="mb-3">
