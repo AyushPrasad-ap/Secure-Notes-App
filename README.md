@@ -1,4 +1,3 @@
-```markdown
 # 🔐 Secure Notes App
 
 A modern full-stack web application for securely creating, managing, and storing personal notes.  
@@ -11,6 +10,7 @@ Built with **React + Vite**, **Node.js + Express**, **MongoDB**, **JWT Authentic
 ---
 
 ## 📁 Project Structure
+
 ```
 
 Secure Notes App/
@@ -33,13 +33,14 @@ Secure Notes App/
 ├── .env
 └── vite.config.js
 
-````
+```
 
 ---
 
 # ✨ Features
 
 ## 🔐 Authentication
+
 - JWT-based login & registration
 - Password hashing using **bcryptjs**
 - Protected dashboard route
@@ -47,6 +48,7 @@ Secure Notes App/
 - Logout flow
 
 ## 🗒️ Notes Management
+
 - Create, read, update, delete (CRUD) operations
 - Notes linked to authenticated users
 - Search notes by keywords
@@ -55,6 +57,7 @@ Secure Notes App/
 - Long notes scroll **inside** the card (max-height system)
 
 ## 🎨 Modern UI (Glassmorphism)
+
 - Frosted-glass cards & containers
 - Clean navbar with user greeting
 - Background image with fixed overlay
@@ -64,6 +67,7 @@ Secure Notes App/
 - Bootstrap 5 + custom CSS
 
 ## ⚙️ Backend
+
 - Node.js + Express REST API
 - MongoDB Atlas database
 - Mongoose for schema & validation
@@ -71,6 +75,7 @@ Secure Notes App/
 - Secure routes using JWT middleware
 
 ## 🔒 Security
+
 - Password hashing
 - JWT authentication
 - CORS protection
@@ -82,6 +87,7 @@ Secure Notes App/
 # 🛠️ Tech Stack
 
 ### **Frontend**
+
 - React.js (Vite)
 - React Router DOM
 - Bootstrap 5
@@ -90,6 +96,7 @@ Secure Notes App/
 - Custom Glassmorphism CSS
 
 ### **Backend**
+
 - Node.js
 - Express.js
 - MongoDB Atlas
@@ -107,7 +114,7 @@ Secure Notes App/
 ```bash
 git clone https://github.com/your-username/secure-notes-app.git
 cd secure-notes-app
-````
+```
 
 ---
 
