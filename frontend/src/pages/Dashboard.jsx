@@ -62,7 +62,7 @@ export default function Dashboard() {
                 <div className="glass glass-nav mb-4">
                     <div className="d-flex align-items-center">
                         <img src="logo.png" width={35} alt="logo" />
-                        <h5 className="mb-0 ms-2">Secure Notes</h5>
+                        <h5 className="mb-0 ms-2 header-logo-text">Secure Notes</h5>
                     </div>
                     <div className="d-flex align-items-center">
                         <div className="me-2">
