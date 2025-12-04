@@ -224,3 +224,9 @@ body::before {
     font-size: 1rem;
   }
 }
+
+@media (max-width: 480px) {
+  .auth-card {
+    margin: 0 16px;
+  }
+}
