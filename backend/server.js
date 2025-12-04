@@ -41,7 +41,7 @@ app.use(
       imgSrc: ["'self'", 'data:'],
     },
   })
-);
+); 
 
 // Body parser with size limit
 app.use(express.json({ limit: '10kb' }));
