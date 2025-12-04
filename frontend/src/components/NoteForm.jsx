@@ -18,12 +18,12 @@ export default function NoteForm({ onCreate }) {
     };
 
     return (
-        <form onSubmit={submit} className="mb-3">
-            <div className="input-group">
+        <form onSubmit={submit} className="mb-5">
+            <div className="input-group mb-3">
                 <input value={title} onChange={e => setTitle(e.target.value)} placeholder="Note title" className="form-control" />
                 <button className="btn btn-primary">Add</button>
             </div>
-            <textarea value={body} onChange={e => setBody(e.target.value)} className="form-control mt-2" placeholder="Details" />
+            <textarea value={body} onChange={e => setBody(e.target.value)} className="form-control mt-2" placeholder="Details" style={{ height: "120px" }} />
         </form>
     );
 }
