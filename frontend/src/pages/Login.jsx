@@ -5,31 +5,37 @@ import { useNavigate, Link } from 'react-router-dom';
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const submit = async (e) => {
         e.preventDefault();
-
         if (!email || !password) {
             return alert("Please enter both email and password.");
         }
 
         try {
+            setLoading(true);
             const res = await API.post("/auth/login", { email, password });
             localStorage.setItem("token", res.data.token);
+            // on success navigate (component will unmount)
             navigate("/dashboard");
         } catch (err) {
             const api = err.response?.data;
 
             if (api?.errors?.length) {
-                return alert(api.errors.map(e => e.msg).join("\n"));
+                alert(api.errors.map(e => e.msg).join("\n"));
+                return;
             }
 
             if (api?.msg) {
-                return alert(api.msg);
+                alert(api.msg);
+                return;
             }
 
             alert("Login failed. Please try again.");
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -50,15 +56,43 @@ export default function Login() {
 
                     <form onSubmit={submit}>
                         <div className="mb-3">
-                            <input className="form-control" placeholder="Email"
-                                value={email} onChange={e => setEmail(e.target.value)} />
+                            <input
+                                className="form-control"
+                                placeholder="Email"
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
+                                disabled={loading}
+                            />
                         </div>
                         <div className="mb-3">
-                            <input type="password" className="form-control" placeholder="Password"
-                                value={password} onChange={e => setPassword(e.target.value)} />
+                            <input
+                                type="password"
+                                className="form-control"
+                                placeholder="Password"
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
+                                disabled={loading}
+                            />
                         </div>
 
-                        <button className="btn btn-primary w-100">Login</button>
+                        <button
+                            type="submit"
+                            className="btn btn-primary w-100"
+                            disabled={loading}
+                        >
+                            {loading ? (
+                                <>
+                                    <span
+                                        className="spinner-border spinner-border-sm me-2"
+                                        role="status"
+                                        aria-hidden="true"
+                                    />
+                                    Logging in...
+                                </>
+                            ) : (
+                                'Login'
+                            )}
+                        </button>
                     </form>
 
                     <div className="mt-3 text-center">

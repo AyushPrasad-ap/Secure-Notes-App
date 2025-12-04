@@ -8,6 +8,8 @@ export default function Dashboard() {
     const [profile, setProfile] = useState(null);
     const [notes, setNotes] = useState([]);
     const [q, setQ] = useState("");
+    const [loggingOut, setLoggingOut] = useState(false);
+
 
     const fetchProfile = async () => {
         try {
@@ -38,9 +40,13 @@ export default function Dashboard() {
     }, [q]);
 
     const logout = () => {
-        localStorage.removeItem("token");
-        window.location.href = "/login";
+        setLoggingOut(true);
+        setTimeout(() => {
+            localStorage.removeItem("token");
+            window.location.href = "/login";
+        }, 600); // small delay to let spinner show
     };
+
 
     const removeNote = async (id) => {
         if (!confirm("Delete this note?")) return;
@@ -66,7 +72,25 @@ export default function Dashboard() {
                                     : "User"}
                             </strong>
                         </div>
-                        <button className="btn btn-outline-danger btn-sm" onClick={logout}>Logout</button>
+                        <button
+                            className="btn btn-outline-danger btn-sm"
+                            onClick={logout}
+                            disabled={loggingOut}
+                        >
+                            {loggingOut ? (
+                                <>
+                                    <span
+                                        className="spinner-border spinner-border-sm me-2"
+                                        role="status"
+                                        aria-hidden="true"
+                                    />
+                                    Logging out...
+                                </>
+                            ) : (
+                                "Logout"
+                            )}
+                        </button>
+
                     </div>
                 </div>
 
