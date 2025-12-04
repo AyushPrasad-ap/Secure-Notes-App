@@ -10,15 +10,32 @@ export default function Login() {
 
     const submit = async (e) => {
         e.preventDefault();
-        if (!email || !password) return alert('enter email and password');
+
+        if (!email || !password) {
+            return alert("Please enter both email and password.");
+        }
+
         try {
-            const res = await API.post('/auth/login', { email, password });
-            localStorage.setItem('token', res.data.token);
-            navigate('/dashboard');
+            const res = await API.post("/auth/login", { email, password });
+            localStorage.setItem("token", res.data.token);
+            navigate("/dashboard");
         } catch (err) {
-            alert(err.response?.data?.msg || 'Login failed');
+            const api = err.response?.data;
+
+            // express-validator errors:
+            if (api?.errors?.length) {
+                return alert(api.errors.map(e => e.msg).join("\n"));
+            }
+
+            // generic backend message
+            if (api?.msg) {
+                return alert(api.msg);
+            }
+
+            alert("Login failed. Please try again.");
         }
     };
+
 
     return (
         <div className="center-screen">

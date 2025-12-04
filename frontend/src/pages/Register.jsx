@@ -17,8 +17,16 @@ export default function Register() {
             localStorage.setItem('token', res.data.token);
             navigate('/dashboard');
         } catch (err) {
-            alert(err.response?.data?.msg || 'Registration failed');
+            const api = err.response?.data;
+
+            if (api?.errors?.length) {
+                alert(api.errors.map(e => e.msg).join("\n"));
+                return;
+            }
+
+            alert(api?.msg || "Registration failed");
         }
+
     };
 
     return (
