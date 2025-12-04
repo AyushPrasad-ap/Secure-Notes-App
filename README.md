@@ -7,6 +7,8 @@ Built with **React + Vite**, **Node.js + Express**, **MongoDB**, **JWT Authentic
 
 ## 🚀 Live Demo
 
+https://secure-notes-app-two.vercel.app/login
+
 ---
 
 ## 📁 Project Structure
